@@ -1,0 +1,125 @@
+package calculator;
+
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Calculator extends JFrame implements ActionListener {
+
+    JTextField num1Field;
+    JTextField num2Field;
+    JTextField resultField;
+
+    JButton addBtn;
+    JButton subBtn;
+    JButton mulBtn;
+    JButton divBtn;
+    JButton btnHistory;
+
+    CalculatorLogic calc = new CalculatorLogic();
+    FileHandler file = new FileHandler();
+
+    Calculator() {
+
+        setTitle("Basic Calculator");
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        setSize(400, 300);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel num1Label = new JLabel("First Number:");
+
+        num1Label.setBounds(40, 30, 120, 30);
+        add(num1Label);
+
+        num1Field = new JTextField();
+
+        num1Field.setBounds(170, 30, 150, 30);
+
+  
+        num1Field.addKeyListener(new KeyAdapter() {
+
+            public void keyTyped(KeyEvent e) {
+
+                char c = e.getKeyChar();
+
+                if (Character.isLetter(c)) {
+
+                    JOptionPane.showMessageDialog(null,
+                            "Letters are not allowed!");
+
+                    e.consume();
+                }
+            }
+        });
+
+        add(num1Field);
+
+        JLabel num2Label = new JLabel("Second Number:");
+
+        num2Label.setBounds(40, 80, 120, 30);
+        add(num2Label);
+
+        num2Field = new JTextField();
+
+        num2Field.setBounds(170, 80, 150, 30);
+
+        // REJECT LETTERS
+        num2Field.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+                char c = e.getKeyChar();
+
+                if (Character.isLetter(c)) {
+
+                    JOptionPane.showMessageDialog(null,
+                            "Letters are not allowed!");
+
+                    e.consume();
+                }
+            }
+        });
+
+        add(num2Field);
+
+        addBtn = new JButton("+");
+        addBtn.setBounds(40, 140, 60, 40);
+        addBtn.addActionListener(this);
+        add(addBtn);
+
+        subBtn = new JButton("-");
+        subBtn.setBounds(110, 140, 60, 40);
+        subBtn.addActionListener(this);
+        add(subBtn);
+
+        mulBtn = new JButton("*");
+        mulBtn.setBounds(180, 140, 60, 40);
+        mulBtn.addActionListener(this);
+        add(mulBtn);
+
+        divBtn = new JButton("/");
+        divBtn.setBounds(250, 140, 60, 40);
+        divBtn.addActionListener(this);
+        add(divBtn);
+
+        // HISTORY BUTTON
+        btnHistory = new JButton("History");
+        btnHistory.setBounds(320, 140, 100, 40);
+        btnHistory.addActionListener(this);
+        add(btnHistory);
+
+        JLabel resultLabel = new JLabel("Result:");
+        resultLabel.setBounds(40, 200, 120, 30);
+        add(resultLabel);
+
+        resultField = new JTextField();
+        resultLabel.setBounds(40, 200, 120, 30);
+        resultField.setBounds(170, 200, 150, 30);
+        resultField.setEditable(false);
+        add(resultField);
+
+        setVisible(true);
+    }
