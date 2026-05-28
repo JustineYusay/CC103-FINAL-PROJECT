@@ -1,0 +1,52 @@
+package calculator;
+
+import java.io.*;
+
+public class FileHandler {
+
+    String fileName = "history.txt";
+
+    public void saveHistory(String text) {
+
+        try {
+
+            FileWriter writer = new FileWriter(fileName, true);
+
+            writer.write(text + "\n");
+
+            writer.close();
+
+        } catch (IOException e) {
+
+            System.out.println("Error saving history.");
+        }
+    }
+
+    public String readHistory() {
+
+        String history = "";
+
+        try {
+
+            BufferedReader reader =
+                    new BufferedReader(new FileReader(fileName));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                history += line + "\n";
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+
+            history = "No history found.";
+        }
+
+        return history;
+    }
+}
+ 
+
