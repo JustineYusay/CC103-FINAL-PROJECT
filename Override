@@ -1,0 +1,67 @@
+@Override
+    public void actionPerformed(ActionEvent e) {
+
+        // HISTORY BUTTON FUNCTION
+        if (e.getSource() == btnHistory) {
+
+            String history = file.readHistory();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    history,
+                    "Calculation History",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            return;
+        }
+
+        try {
+
+            double num1 = Double.parseDouble(num1Field.getText());
+
+            double num2 = Double.parseDouble(num2Field.getText());
+
+            double result = 0;
+            String operation = "";
+
+            if (e.getSource() == addBtn) {
+
+                result = calc.add(num1, num2);
+                operation = "+";
+
+            } else if (e.getSource() == subBtn) {
+
+                result = calc.subtract(num1, num2);
+                operation = "-";
+
+            } else if (e.getSource() == mulBtn) {
+
+                result = calc.multiply(num1, num2);
+                operation = "*";
+
+            } else if (e.getSource() == divBtn) {
+
+                result = calc.divide(num1, num2);
+                operation = "/";
+            }
+
+            resultField.setText(
+            String.valueOf(result));
+
+            String history = num1 + " " + operation + " " + num2 + " = " + result;
+
+            file.saveHistory(history);
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers!");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        new Calculator();
+    }
+}
+    
